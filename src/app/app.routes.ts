@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { Home } from './src/app/home/home';
+import { Home } from './home/home';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

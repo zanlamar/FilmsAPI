@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Film } from '../../../shared/models/film-basic';
+import { Film } from '../shared/models/film-basic';
 
 @Component({
   selector: 'app-home',
