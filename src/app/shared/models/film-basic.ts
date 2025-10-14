@@ -5,3 +5,11 @@ export interface Film {
   overview?: string;
   release_date?: string;
 }
+
+// API Response 
+export interface APIResponse {
+ page: number;
+ results: Film[];
+ total_pages: number;
+ total_results: number;
+}
