@@ -11,16 +11,16 @@ import { APIservice } from '../shared/services/API-service';
 })
 export class Home implements OnInit {
   constructor(private APIservice: APIservice) {}
-    
-    ngOnInit() {
-      this.APIservice.loadFilms();
-    }
-    
-    // Direct access to signals
-    get films() { return this.APIservice.films(); }
-    get loading() { return this.APIservice.loading(); }
+
+  ngOnInit() {
+    this.APIservice.loadFilms();
+  }
+
+  // Direct access to signals
+  get films() { return this.APIservice.films(); }
+  get loading() { return this.APIservice.loading(); }
 
   onLoadMore() {
     this.APIservice.loadFilms();
-  };
-};
+  }
+}

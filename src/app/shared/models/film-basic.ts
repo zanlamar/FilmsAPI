@@ -4,12 +4,12 @@ export interface Film {
   poster_path: string;
   overview?: string;
   release_date?: string;
+  vote_average: number;
 }
 
-// API Response 
 export interface APIResponse {
- page: number;
- results: Film[];
- total_pages: number;
- total_results: number;
+  results: Film[];
+  page: number;
+  total_pages: number;
+  total_results: number;
 }

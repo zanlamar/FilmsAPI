@@ -1,28 +1,35 @@
 <div class="films-container">
+
   <div class="films-header">
     <h1>Latest films</h1>
-    <p>Clic and explore - enjoy the show! </p>
+    <p>Click and explore - enjoy the show!</p>
   </div>
 
   <div class="films-grid">
     @for (film of films; track film.id) {
       <div class="film-card">
         <div class="film-poster">
-          <img 
-            [src]="'https://image.tmdb.org/t/p/w500' + film.poster_path"
-            [alt]="film.title"
-            loading="lazy"
-            class="poster-image"
-          />
-          <div class="film-overlay">
-            <div class="film-info">
-              <h3 class="film-title">{{ film.title }}</h3>
-              @if (film.release_date) {
-                <p class="film-year">{{ film.release_date | date:'yyyy' }}</p>
-              }
-            </div>
+          @if (film.poster_path) {
+            <img 
+              [src]="'https://image.tmdb.org/t/p/w500' + film.poster_path"
+              [alt]="film.title"
+              loading="lazy"
+              class="poster-image"
+            />
+          } @else { 
+            <div class="poster-placeholder">No image available</div>
+          }
+        </div>
+
+        <div class="film-overlay">
+          <div class="film-info">
+            <h3 class="film-title">{{ film.title }}</h3>
+            @if (film.release_date) {
+              <p class="film-year">{{ film.release_date | date:'yyyy' }}</p>
+            }
           </div>
         </div>
+
         <div class="film-details">
           <h3 class="film-title-mobile">{{ film.title }}</h3>
           @if (film.release_date) {
@@ -30,24 +37,26 @@
           }
         </div>
       </div>
-
-      @if (!loading && films.length > 0) {
-         <div class="load-more-container">
-        <button
-          class="load-more-btn"
-          (click)="onLoadMore()"
-          [disabled]="loading"
-        >  <span class="btn-text">Refresh Films</span>
-        </button>
-        </div>
-        }
     }
   </div>
 
-  <!-- @if (loading) {
+  @if (!loading && films.length > 0) {
+    <div class="load-more-container">
+      <button
+        class="load-more-btn"
+        (click)="onLoadMore()"
+        [disabled]="loading"
+      >
+        <span class="btn-text">Refresh Films</span>
+      </button>
+    </div>
+  }
+
+  @if (loading) {
     <div class="loading-container">
       <div class="loading-spinner"></div>
-      <p>Loading more films...</p>
+      <p>Loading films...</p>
     </div>
-  } -->
+  }
 
+</div>

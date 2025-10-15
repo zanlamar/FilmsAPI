@@ -18,29 +18,24 @@ export class APIservice {
     private headers = new HttpHeaders({
         'Authorization': `Bearer ${this.apiKey}`
     });
-
     private params = new HttpParams().set('language', 'en');
+
 
     films = signal<Film[]>([]);
     loading = signal<boolean>(false);
 
     async loadFilms() {
         this.loading.set(true);
-        try {
-            const response = await firstValueFrom(
-                this.http.get<any>(this.apiUrl, { headers: this.headers })
-            );
-            this.films.set(response.results || []);
-    } catch (error) {
-        console.error('Error:', error);
-        this.films.set([]);
-    } finally {
-        this.loading.set(false);
-    }
-}
-
-
-    getFilms(): Observable<Film[]> {
-        return this.http.get<Film[]>(this.apiUrl, { headers: this.headers });
+            try {
+                const response = await firstValueFrom(
+                    this.http.get<APIResponse>(this.apiUrl, { headers: this.headers, params: this.params  })
+                );
+                this.films.set(response.results || []);
+        } catch (error) {
+            console.error('Error:', error);
+            this.films.set([]);
+        } finally {
+            this.loading.set(false);
+        }
     }
 }
