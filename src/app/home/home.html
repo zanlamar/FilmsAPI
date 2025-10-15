@@ -1,4 +1,4 @@
-<div class="films-container">
+<div class="films-container" appScrollEnd (scrolledToEnd)="onLoadMore()">
 
   <div class="films-header">
     <h1>Latest films</h1>
@@ -40,6 +40,19 @@
     }
   </div>
 
+  @if (loading) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading more films...</p>
+    </div>
+  }
+
+  @if (!loading && films.length === 0) {
+    <div class="no-more-container">
+      <p>No more films to load.</p>
+    </div>
+  }
+
   @if (!loading && films.length > 0) {
     <div class="load-more-container">
       <button
@@ -47,15 +60,19 @@
         (click)="onLoadMore()"
         [disabled]="loading"
       >
-        <span class="btn-text">Refresh Films</span>
+        <span class="btn-text">Load More Films</span>
+        <svg
+          class="btn-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M12 5v14M5 12l7 7 7-7" />
+        </svg>
       </button>
-    </div>
-  }
-
-  @if (loading) {
-    <div class="loading-container">
-      <div class="loading-spinner"></div>
-      <p>Loading films...</p>
     </div>
   }
 
