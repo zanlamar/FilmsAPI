@@ -1,0 +1,66 @@
+<div class="film-detail-container">
+  
+  @if (loading) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading film details...</p>
+    </div>
+  }
+
+  @if (error && !loading) {
+    <div class="error-container">
+      <p>Error loading film details. Please try again.</p>
+    </div>
+  }
+
+  @if (film && !loading) {
+    <!-- Main Film Information -->
+    <div class="film-detail-hero">
+      
+      <!-- Rating Badge -->
+      <div class="rating-badge">
+        <div class="rating-score">{{ film.vote_average | number:'1.1-1' }}</div>
+        <div class="rating-max">/10</div>
+      </div>
+
+      <!-- Film Poster -->
+      <div class="film-detail-poster">
+        @if (film.poster_path) {
+          <img 
+            [src]="'https://image.tmdb.org/t/p/w500' + film.poster_path"
+            [alt]="film.title"
+            class="detail-poster-image"
+          />
+        } @else {
+          <div class="poster-placeholder">No image available</div>
+        }
+      </div>
+
+      <!-- Film Info -->
+      <div class="film-detail-info">
+        <h1 class="detail-title">{{ film.title }}</h1>
+        
+        <div class="detail-metadata">
+          <div class="metadata-item">
+            <span class="metadata-label">Genres:</span>
+            <span class="metadata-value">{{ getGenresString() }}</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Language:</span>
+            <span class="metadata-value">{{ film.original_language | uppercase }}</span>
+          </div>
+          <div class="metadata-item">
+            <span class="metadata-label">Release Date:</span>
+            <span class="metadata-value">{{ film.release_date | date:'mediumDate' }}</span>
+          </div>
+        </div>
+
+        <div class="detail-overview">
+          <h2 class="section-subtitle">Synopsis</h2>
+          <p class="overview-text">{{ film.overview || 'No synopsis available.' }}</p>
+        </div>
+      </div>
+    </div>
+  }
+
+</div>
