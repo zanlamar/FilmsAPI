@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { APIfilmService } from '../shared/services/API-film-details.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
