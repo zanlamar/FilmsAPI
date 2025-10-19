@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Film } from '../shared/models/film-basic';
 import { APIservice } from '../shared/services/API-service';
 import { ScrollEndDirective } from '../shared/directives/scroll-end.directive';
+import { RouterLink } from '@angular/router';
+
 
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, ScrollEndDirective],
+  imports: [CommonModule, ScrollEndDirective, RouterLink],
   templateUrl: './home.html',
-  styleUrl: './home.css'
+  styleUrl: './home.css',
+  standalone: true,
 })
 export class Home implements OnInit {
   hasMoreFilm = true;

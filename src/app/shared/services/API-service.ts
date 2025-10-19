@@ -45,8 +45,8 @@ export class APIservice {
             const response = await firstValueFrom(
                 this.http.get<APIResponse>(
                     this.apiUrl, 
-                    { headers: 
-                        this.headers, 
+                    { 
+                        headers: this.headers, 
                         params: paramsWithPage,
                     })
             );
