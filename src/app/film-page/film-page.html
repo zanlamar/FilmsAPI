@@ -7,13 +7,13 @@
     </div>
   }
 
-  @if (error() && !loading) {
+  @if (error() && !loading()) {
     <div class="error-container">
       <p>Error loading film details. Please try again.</p>
     </div>
   }
 
-  @if (film() && !loading) {
+  @if (film() && !loading()) {
     <!-- Main Film Information -->
     <div class="film-detail-hero">
       
