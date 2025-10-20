@@ -1,3 +1,5 @@
+import { Film } from "./film-basic";
+
 export interface Genre {
     id: number;
     name: string;
@@ -14,15 +16,30 @@ export interface FilmDetail {
     genres: Genre[];
 }
 
-export interface APIcastResponse {
-    id: number;
-    cast: [
-        {
-            name: string;
-            character: string;
-            poster_path: string;
-        }
-    ]
+export interface FilmCredits {
+    id?: number
+    cast: APIResponseCast[]
 }
 
+export interface APIResponseCast {
+    adult: boolean
+    gender: number
+    id: number
+    known_for_department: string
+    name: string
+    original_name: string
+    popularity: number
+    profile_path?: string
+    cast_id: number
+    character: string
+    credit_id: string
+    order: number
+}
+
+export interface APIresponseRecommended {
+    page: number
+    results: Film[]
+    total_pages: number
+    total_results: number
+}
 

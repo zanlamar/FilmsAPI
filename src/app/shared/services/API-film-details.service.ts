@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams  } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { FilmDetail } from '../models/film-details';
+import { FilmDetail, APIresponseRecommended, APIResponseCast, FilmCredits } from '../models/film-details';
 import { firstValueFrom } from 'rxjs';
 import { signal } from '@angular/core';
+import { Film } from '../models/film-basic';
 
 
 @Injectable({
@@ -53,4 +54,62 @@ export class APIfilmService {
             this.loading.set(false);
         }
     }
+    
+    // para el cast y las recomendadas
+    cast = signal<APIResponseCast[]>([]);
+    recommended = signal<Film[]>([]);
+
+    async showCast(filmID:number) {
+        this.loading.set(true);
+        this.error.set(false);
+
+        try {
+            const url = `${this.apiUrl}/${filmID}/credits`;
+
+            const response = await firstValueFrom(
+                this.http.get<FilmCredits>(
+                    url, 
+                    { 
+                        headers: this.headers, // TO BE DEFINED
+                        params: this.params
+                    })
+            );
+            this.cast.set(response.cast);
+
+        } catch (error) {
+            console.error('Error loading film details:', error);
+            this.error.set(true);  // Marca que hubo error
+            this.film.set(null);
+        } finally {
+            this.loading.set(false);
+        }
+    }
+
+    async showRecommended(filmID:number) {
+        this.loading.set(true);
+        this.error.set(false);
+
+        try {
+            const url = `${this.apiUrl}/${filmID}/recommendations`;
+
+            const response = await firstValueFrom(
+                this.http.get<APIresponseRecommended>(
+                    url, 
+                    { 
+                        headers: this.headers, // TO BE DEFINED
+                        params: this.params
+                    })
+            );
+            this.recommended.set(response.results);
+
+        } catch (error) {
+            console.error('Error loading film details:', error);
+            this.error.set(true);  // Marca que hubo error
+            this.film.set(null);
+        } finally {
+            this.loading.set(false);
+        }
+    }
+
+
 }
