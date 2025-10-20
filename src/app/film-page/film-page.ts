@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { APIfilmService } from '../shared/services/API-film-details.service';
 import { ActivatedRoute } from '@angular/router';
-import { RouterLink } from '@angular/router'; 
+import { RouterLink } from '@angular/router';
 
 
 @Component({
@@ -25,21 +25,16 @@ export class FilmPage implements OnInit {
   error = this.filmService.error;
 
   ngOnInit(): void {
-    const filmID = this.route.snapshot.params['id'];
-    
-    if (filmID) {
-      // ID de la ruta importante
-      this.filmService.showFilm(Number(filmID));
-      this.filmService.showCast(Number(filmID));
-      this.filmService.showRecommended(Number(filmID));
+    this.route.params.subscribe(params => {
+      const filmID = params['id'];
 
-       // Añade estos logs temporales para debug:
-    setTimeout(() => {
-      console.log('Cast data:', this.cast());
-      console.log('Recommended data:', this.recommended());
-      console.log('Loading:', this.loading());
-    }, 2000);
-    }
+      if (filmID) {
+        // ID de la ruta importante
+        this.filmService.showFilm(Number(filmID));
+        this.filmService.showCast(Number(filmID));
+        this.filmService.showRecommended(Number(filmID));
+      }
+    });
   }
 
   getGenre(): string {
@@ -47,6 +42,4 @@ export class FilmPage implements OnInit {
       if (!filmData || !filmData.genres) return 'N/A';
       return filmData.genres.map( g => g.name).join(', ');
   }
-
-
 }
