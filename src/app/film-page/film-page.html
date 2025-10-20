@@ -32,7 +32,7 @@
             class="detail-poster-image"
           />
         } @else {
-          <div class="poster-placeholder">No image available</div>
+          <div class="photo-placeholder">No image available</div>
         }
       </div>
 
@@ -59,6 +59,67 @@
           <h2 class="section-subtitle">Synopsis</h2>
           <p class="overview-text">{{ film()?.overview || 'No synopsis available.' }}</p>
         </div>
+      </div>
+    </div>
+  }
+
+  <!-- CAST Info -->
+  @if (cast() && cast().length > 0 && !loading()) {
+    <!-- Cast Information -->
+    <div class="cast-section">
+      <h2 class="section-title">Cast</h2>
+      <div class="cast-carousel">
+        @for (castMember of cast(); track castMember.id) {
+          <div class="cast-card">
+            <div class="cast-photo">
+            @if (castMember.profile_path) {
+              <img 
+                [src]="'https://image.tmdb.org/t/p/w200' + castMember.profile_path"
+                [alt]="castMember.name"
+                class="actor-image"
+              />
+            } @else {
+              <div class="poster-placeholder">No image available</div>
+            }
+          </div>
+
+            <div class="cast-info">
+              <h3 class="actor-name">{{ castMember.name }}</h3>
+              <p class="character-name">{{ castMember.character }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Recommended Info -->
+  @if (recommended() && recommended().length > 0 && !loading()) {
+    <!-- recommended films  Information -->
+    <div class="recommended-section">
+      <h2 class="section-title">Recommended films</h2>
+      <div class="recommended-carousel">
+        @for (film of recommended(); track film.id) {
+          <div class="recommended-card" [routerLink]="['/film', film.id]">
+            <div class="recommended-poster">
+              @if (film.poster_path) {
+                <img 
+                  [src]="'https://image.tmdb.org/t/p/w500' + film.poster_path"
+                  [alt]="film.title"
+                  class="recommended-image"
+                />
+              } @else {
+                <div class="poster-placeholder">No image available</div>
+              }
+            </div>
+            <div class="recommended-info">
+              <h3 class="recommended-title">{{ film.title }}</h3>
+              @if (film.release_date) {
+                <p class="recommended-year">{{ film.release_date | date:'mediumDate' }}</p>
+              }
+            </div>
+          </div>
+        }
       </div>
     </div>
   }
