@@ -1,5 +1,5 @@
 import { Component, signal, inject } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterOutlet, RouterLink, Router } from '@angular/router';
 import { AuthService } from './shared/services/auth.service';
 import { CommonModule } from '@angular/common';
 
@@ -12,10 +12,18 @@ import { CommonModule } from '@angular/common';
 export class App {
   
   authService = inject(AuthService);
+  router = inject(Router);
+
+  protected readonly title = signal('FilmsAPI');
   
   onLogout() {
     this.authService.logout();
   }
 
-  protected readonly title = signal('FilmsAPI');
+  
+  shouldShowFooter(): boolean {
+    const url = this.router.url;
+    return url !== '/login' && url !== '/register';
+  }
+  
 }

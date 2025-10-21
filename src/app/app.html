@@ -19,6 +19,8 @@
   <router-outlet></router-outlet>
 </main>
 
-<footer>
-  <p>© 2025 Movie App</p>
-</footer>
+@if (shouldShowFooter()) {
+  <footer>
+    <p>© 2025 Movie App</p>
+  </footer>
+}

@@ -44,13 +44,13 @@ export class Register {
       this.router.navigate(['/home']);
     } else {
       if (result.error?.includes('email-already-in-use')) {
-        this.errorMessage.set('Este email ya está registrado');
+        this.errorMessage.set('That email is already registered.');
       } else if (result.error?.includes('invalid-email')) {
-        this.errorMessage.set('El email no es válido');
+        this.errorMessage.set('The email is invalid.');
       } else if (result.error?.includes('weak-password')) {
-        this.errorMessage.set('La contraseña es muy débil');
+        this.errorMessage.set('The password is too weak.');
       } else {
-        this.errorMessage.set('Error al registrarse. Inténtalo de nuevo');
+        this.errorMessage.set('Registration error. Please try again');
       }
     }
     this.loading.set(false);
