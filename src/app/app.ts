@@ -21,9 +21,4 @@ export class App {
   }
 
   
-  shouldShowFooter(): boolean {
-    const url = this.router.url;
-    return url !== '/login' && url !== '/register';
-  }
-  
 }

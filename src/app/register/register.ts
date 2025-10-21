@@ -26,12 +26,12 @@ export class Register {
 
   async onRegister() {
     if (this.password !== this.confirmPassword) {
-      this.errorMessage.set('Las contraseñas no coinciden');
+      this.errorMessage.set('The passwords do not match');
       return;
     }
 
     if (this.password.length < 6) {
-      this.errorMessage.set('La contraseña debe tener al menos 6 caracteres');
+      this.errorMessage.set('The password must be at least 6 characters long');
       return;
     }
 
