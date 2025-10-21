@@ -31,7 +31,11 @@ export class Login {
 
     if (result.success) {
       const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-      this.router.navigateByUrl(returnUrl);
+      if (returnUrl === '/login' || returnUrl === '/register') {
+        this.router.navigate(['/home']);
+      } else {
+        this.router.navigateByUrl(returnUrl);
+      }
     } else {
       this.errorMessage.set('Invalid password or email');
     }
