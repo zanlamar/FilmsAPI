@@ -4,9 +4,13 @@
       <img src="/blue_short-logo.svg" alt="Movie App Logo" class="navbar-logo" [routerLink]="['/home']">
     </div>
     <div class="navbar-nav">
-      <a routerLink="/home" class="nav-link">HOME</a>
-      <a routerLink="/login" class="nav-link">Login</a>
-      <a routerLink="/register" class="nav-link">Sign Up</a>
+      @if (authService.currentUser()) {
+        <a routerLink="/home" class="nav-link">HOME</a>
+        <button (click)="onLogout()" class="nav-link nav-btn" >Logout</button>
+      } @else {
+        <a routerLink="/login" class="nav-link">Login</a>
+        <a routerLink="/register" class="nav-link">Sign Up</a>
+      }
     </div>
   </nav>
 </header>
