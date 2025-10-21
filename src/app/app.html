@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar">
     <div class="navbar-brand">
-      <img src="/blue_short-logo.svg" alt="Movie App Logo" class="navbar-logo" [routerLink]="['/home']">
+      <img src="/blue_short-logo.svg" alt="Movie App Logo" class="navbar-logo">
     </div>
     <div class="navbar-nav">
       @if (authService.currentUser()) {
@@ -18,9 +18,3 @@
 <main>
   <router-outlet></router-outlet>
 </main>
-
-@if (shouldShowFooter()) {
-  <footer>
-    <p>© 2025 Movie App</p>
-  </footer>
-}
