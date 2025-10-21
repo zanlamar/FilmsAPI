@@ -1,23 +1,30 @@
 import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { App } from './app';
+import { AuthService } from './shared/services/auth.service';
 
-describe('App', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [App],
-    }).compileComponents();
+describe('App component', () => {
+  let component: App;
+  let authServiceSpy: jasmine.SpyObj<AuthService>;
+  let routerSpy: jasmine.SpyObj<Router>;
+
+  beforeEach(() => {
+    authServiceSpy = jasmine.createSpyObj('AuthService', ['logout']);
+    routerSpy = jasmine.createSpyObj('Router', ['navigate'], { url: '/home' });
+
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: AuthService, useValue: authServiceSpy },
+        { provide: Router, useValue: routerSpy }
+      ]
+    });
+
+    component = TestBed.runInInjectionContext(() => new App());
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  it('should call AuthService.logout() when logout is called', () => {
+    component.onLogout();
+    expect(authServiceSpy.logout).toHaveBeenCalled();
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, FilmsAPI');
-  });
 });

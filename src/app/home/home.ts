@@ -1,0 +1,31 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { APIservice } from '../shared/services/API-service';
+import { ScrollEndDirective } from '../shared/directives/scroll-end.directive';
+import { RouterLink } from '@angular/router';
+
+
+
+@Component({
+  selector: 'app-home',
+  imports: [CommonModule, ScrollEndDirective, RouterLink],
+  templateUrl: './home.html',
+  styleUrl: './home.css',
+  standalone: true,
+})
+export class Home implements OnInit {
+  hasMoreFilm = true;
+  constructor(private APIservice: APIservice) {}
+
+  ngOnInit() {
+    this.APIservice.loadFilms();
+  }
+
+  // Direct access to signals
+  get films() { return this.APIservice.films(); }
+  get loading() { return this.APIservice.loading(); }
+
+  onLoadMore() {
+    this.APIservice.loadFilms();
+  }
+}
