@@ -1,8 +1,4 @@
 {
-    "buildCommand": "npm run build -- --configuration production",
-    "outputDirectory": "dist/films-api/browser",
-    "env": {
-        "API_KEY": "@API_KEY",
-        "API_READ_TOKEN": "@API_READ_TOKEN"
-    }
+  "buildCommand": "npm run build -- --configuration production",
+  "outputDirectory": "dist/films-api/browser"
 }
