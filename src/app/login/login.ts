@@ -27,19 +27,25 @@ export class Login {
     this.loading.set(true);
     this.errorMessage.set('');
 
-    const result = await this.authService.login(this.email, this.password);
+    try {
+      const result = await this.authService.login(this.email, this.password);
 
-    if (result.success) {
-      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-      
-      if (returnUrl === '/login' || returnUrl === '/register') {
-        this.router.navigate(['/home']);
+      if (result.success) {
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+        
+        if (returnUrl === '/login' || returnUrl === '/register') {
+          this.router.navigate(['/home']);
+        } else {
+          this.router.navigateByUrl(returnUrl);
+        }
       } else {
-        this.router.navigateByUrl(returnUrl);
+        this.errorMessage.set('Invalid password or email');
       }
-    } else {
+    } catch (error) {
+      console.error('Login error:', error);
       this.errorMessage.set('Invalid password or email');
+    } finally {
+      this.loading.set(false);
     }
-    this.loading.set(false);
   }
 }
