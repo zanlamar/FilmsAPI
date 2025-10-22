@@ -1,4 +1,6 @@
 {
-  "buildCommand": "npm run build -- --configuration production",
-  "outputDirectory": "dist/films-api/browser"
+    "buildCommand": "npm run build -- --configuration production",
+    "outputDirectory": "dist/films-api/browser",
+    "installCommand": "npm install --legacy-peer-deps"
+
 }
