@@ -1,7 +1,8 @@
 {
-    "buildCommand": "npm run build",
-    "outputDirectory": "dist/your-app-name/browser",
+    "buildCommand": "npm run build -- --configuration production",
+    "outputDirectory": "dist/films-api/browser",
     "env": {
-        "NODE_ENV": "production"
+        "API_KEY": "@api_key",
+        "API_READ_TOKEN": "@api_read_token"
     }
 }
