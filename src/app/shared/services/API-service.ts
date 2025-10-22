@@ -16,6 +16,7 @@ export class APIservice {
     loading = signal<boolean>(false);
 
     // config de la API
+    private hasInitializedOnce = false;
     private http = inject(HttpClient);
     private apiKey: string = environment.API_KEY;
     private apiUrl: string = 'https://api.themoviedb.org/3/movie/now_playing';
@@ -32,6 +33,7 @@ export class APIservice {
 
     async loadFilms() {
 
+        if (this.hasInitializedOnce && this.films().length > 0) return;
         
         if (this.loading()) return;  // evita llamadas simultáneas
         if (this.totalPages !== null && this.page > this.totalPages) return;  // Si ya llegamos al final, no pedir más
